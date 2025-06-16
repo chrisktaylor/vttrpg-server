@@ -5,7 +5,7 @@ import { Server } from 'socket.io';
 let io = null;
 
 function connect() {
-    io.on('connection', (socket) => {
+    io.on('connection', () => {
         console.log(`Connection at ${Config.Server.Url}`);
     });
 }

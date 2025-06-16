@@ -5,9 +5,9 @@ import createSocket from './socket/createSocket.js';
 
 const app = createExpress();
 const server = createServer(app);
-const io = createSocket(server);
+createSocket(server);
 
-server.listen(Config.Server.Port, (event) => {
+server.listen(Config.Server.Port, () => {
     console.log(`Server running at ${Config.Server.Url}`);
 });
 

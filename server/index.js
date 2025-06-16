@@ -1,2 +1,2 @@
-import * as Config from './config/config.js';
-import Server from './app/server.js';
+import './config/config.js';
+import './app/server.js';
