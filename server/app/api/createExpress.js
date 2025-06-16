@@ -18,7 +18,7 @@ export default function createExpress() {
     app = express();
 
     app.use(express.static(Config.Paths.Public));
-    app.use(express.static(Config.Paths.Static));
+    app.use('/static', express.static(Config.Paths.Static));
 
     listen();
 
