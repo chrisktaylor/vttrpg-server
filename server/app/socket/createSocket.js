@@ -5,8 +5,12 @@ import { Server } from 'socket.io';
 let io = null;
 
 function connect() {
-    io.on('connection', () => {
+    io.on('connection', socket => {
         console.log(`Connection at ${Config.Server.Url}`);
+
+        socket.on('map:move', event => {
+            socket.broadcast.emit('map:move', event);
+        });
     });
 }
 

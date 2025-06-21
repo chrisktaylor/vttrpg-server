@@ -10,11 +10,3 @@ createSocket(server);
 server.listen(Config.Server.Port, () => {
     console.log(`Server running at ${Config.Server.Url}`);
 });
-
-export default {
-    close: function() {
-        console.log('Stopping server.');
-        server.closeAllConnections();
-        server.close();
-    }
-}
