@@ -34,21 +34,21 @@ function buildBackground(width, height, texture) {
     texture.repeat.set(4, 4);
 
     const geometry = new THREE.PlaneGeometry(width * 3, height * 3, 4, 3);
-    const material = new THREE.MeshBasicMaterial( { map: texture });
+    const material = new THREE.MeshBasicMaterial({ map: texture });
     const planeMesh = new THREE.Mesh(geometry, material);
     planeMesh.position.set(width * -1 + width, height * -1 + height, -1);
     map.sceneRoot.add(planeMesh);
 }
 
 function initSocket(socket) {
-    map.camera.setHandler('move', position => {
-        socket.emit('map:move', position);
+    map.camera.setHandler('change', (position) => {
+        socket.emit('map:change', position);
     });
 }
 
 function initClientSocket(socket) {
-    socket.on('map:move', event => {
-        map.camera.moveTo(event.x, event.y);
+    socket.on('map:change', (event) => {
+        map.camera.moveTo(event.x, event.y, event.zoom);
     });
 }
 
@@ -56,11 +56,7 @@ export function createMap(container, socket, hasControl) {
     map.container = container;
     map.renderer = new Renderer(container);
 
-    map.camera = new CameraControl(
-        map.renderer.Canvas,
-        container,
-        hasControl
-    );
+    map.camera = new CameraControl(map.renderer.Canvas, container, hasControl);
 
     map.sceneRoot = new THREE.Scene();
 
@@ -80,7 +76,7 @@ export function createMap(container, socket, hasControl) {
     });
 
     const cubeGeom = new THREE.BoxGeometry(1, 1, 1);
-    const cubeMat = new THREE.MeshBasicMaterial( {color: 0x00ff00 });
+    const cubeMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     map.marker = new THREE.Mesh(cubeGeom, cubeMat);
     map.marker.position.set(0, 0, 0);
     map.sceneRoot.add(map.marker);
