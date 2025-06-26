@@ -5,7 +5,7 @@ const CAMERA_NEAR = 0.1;
 const CAMERA_FAR = 10;
 const CAMERA_Z = 1;
 
-const ZOOM_MIN = 0.1;
+const ZOOM_MIN = 0.25;
 const ZOOM_MAX = 2.0;
 
 export default class CameraControl {
@@ -43,6 +43,8 @@ export default class CameraControl {
             this._controls = new OrbitControls(this._camera, canvas);
             this._controls.mouseButtons = { MIDDLE: THREE.MOUSE.PAN };
             this._controls.zoom = 1;
+            this._controls.minZoom = ZOOM_MIN;
+            this._controls.maxZoom = ZOOM_MAX;
             this._controls.enableDamping = true;
             this._controls.enableRotate = false;
             this._controls.dampingFactor = 0.95;
