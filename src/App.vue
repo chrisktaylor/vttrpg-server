@@ -1,5 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
+
+const socket = window.io();
 </script>
 
 <template>
@@ -14,5 +16,5 @@ import { RouterLink, RouterView } from 'vue-router';
         </nav>
     </header>
 
-    <RouterView />
+    <RouterView v-if="socket" :socket="socket" />
 </template>

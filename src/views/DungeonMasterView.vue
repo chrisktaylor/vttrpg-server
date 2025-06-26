@@ -2,20 +2,23 @@
 import { onMounted, useTemplateRef } from 'vue';
 import { createMap } from '../map/app.js';
 
-const socket = io();
+const props = defineProps({
+    socket: {
+        type: Object,
+        required: true,
+    },
+});
+
 const mapContainer = useTemplateRef('map-container');
 
 onMounted(() => {
-    createMap(mapContainer.value, socket, true);
+    createMap(mapContainer.value, props.socket, true);
 });
 </script>
 
 <template>
     <main>
-        <div
-            ref="map-container"
-            id="map-container"
-        ></div>
+        <div ref="map-container" id="map-container"></div>
     </main>
 </template>
 
