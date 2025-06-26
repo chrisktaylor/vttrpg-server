@@ -41,8 +41,8 @@ function buildBackground(width, height, texture) {
 }
 
 function initSocket(socket) {
-    map.camera.setHandler('change', (position) => {
-        socket.emit('map:change', position);
+    map.camera.setHandler('change', (event) => {
+        socket.emit('map:change', event);
     });
 }
 
