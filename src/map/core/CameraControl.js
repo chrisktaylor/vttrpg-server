@@ -47,7 +47,7 @@ export default class CameraControl {
             this._controls.enableRotate = false;
             this._controls.dampingFactor = 0.95;
 
-            this._controls.addEventListener('change', (e) => this._move(e));
+            this._controls.addEventListener('change', (event) => this._move(event));
         }
 
         this.onUpdate();
@@ -81,8 +81,8 @@ export default class CameraControl {
         this._updateCamera();
     }
 
-    _move(e) {
-        if (this._handlers['change'] && e?.type === 'change') {
+    _move(event) {
+        if (this._handlers['change'] && event?.type === 'change') {
             this._handlers['change']({
                 x: this.Position.x,
                 y: this.Position.y,
