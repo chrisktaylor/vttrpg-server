@@ -7,10 +7,18 @@ export default class Renderer {
     _scene = null;
     _size = { width: 0, height: 0 };
 
-    get Canvas() { return this._renderer.domElement; }
-    get Aspect() { return this._size.width / this._size.height; }
-    get Width() { return this._size.width; }
-    get Height() { return this._size.height; }
+    get Canvas() {
+        return this._renderer.domElement;
+    }
+    get Aspect() {
+        return this._size.width / this._size.height;
+    }
+    get Width() {
+        return this._size.width;
+    }
+    get Height() {
+        return this._size.height;
+    }
 
     constructor(container) {
         this._renderer = new THREE.WebGLRenderer();

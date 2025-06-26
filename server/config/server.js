@@ -3,18 +3,18 @@ import process from 'node:process';
 
 // Adapted from https://stackoverflow.com/a/15075395
 const getLocalIp = () => {
-  const networkInterfaces = os.networkInterfaces();
-  const interfaces = Object.values(networkInterfaces);
-  for (const net of interfaces) {
-    for (const addr of net) {
-      if (!addr) continue;
-      if (addr.family === 'IPv4' && !addr.internal) {
-        return addr.address;
-      }
+    const networkInterfaces = os.networkInterfaces();
+    const interfaces = Object.values(networkInterfaces);
+    for (const net of interfaces) {
+        for (const addr of net) {
+            if (!addr) continue;
+            if (addr.family === 'IPv4' && !addr.internal) {
+                return addr.address;
+            }
+        }
     }
-  }
-  return 'localhost';
-}
+    return 'localhost';
+};
 
 export default function getServer() {
     const serverProtocol = process.env.SERVER_PROTOCOL ?? 'http';
@@ -25,7 +25,7 @@ export default function getServer() {
     return {
         Port: serverPort,
         Url: serverUrl,
-        IndexPaths: [ '/', '/display', '/dm', '/initiative', '/player', '/server' ],
+        IndexPaths: ['/', '/display', '/dm', '/initiative', '/player', '/server'],
         IndexFile: serverIndex,
     };
 }
