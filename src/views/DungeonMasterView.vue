@@ -12,7 +12,7 @@ const props = defineProps({
 const mapContainer = useTemplateRef('map-container');
 
 onMounted(() => {
-    createMap(mapContainer.value, props.socket, true);
+    createMap(mapContainer.value, props.socket, { hasControl: true });
 });
 </script>
 
