@@ -14,6 +14,7 @@ export default class MapControl {
     _sceneRoot = new THREE.Scene();
     _settings = null;
     _socket = null;
+    _resizeObserver = new ResizeObserver(this.onResize.bind(this));
 
     constructor(container, socket, options) {
         this._container = container;
@@ -22,9 +23,11 @@ export default class MapControl {
         this._camera = new CameraControl(
             this._renderer.Canvas,
             this._container,
+            this._settings.hasInput,
             this._settings.hasControl,
         );
         this._socket = socket;
+        this._resizeObserver.observe(this._container);
 
         this._initMode();
         this._loadMap();
@@ -39,6 +42,11 @@ export default class MapControl {
 
     stop() {
         this._running = false;
+    }
+
+    onResize() {
+        this._renderer.onResize(this._container);
+        this._camera.onResize(this._container);
     }
 
     _onRender() {

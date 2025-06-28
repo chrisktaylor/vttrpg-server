@@ -9,6 +9,7 @@ const socket = window.io();
         <nav>
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/server">Server</RouterLink>
+            <RouterLink to="/editor">Editor</RouterLink>
             <RouterLink to="/dm">DM</RouterLink>
             <RouterLink to="/player">Player</RouterLink>
             <RouterLink to="/display">Display</RouterLink>

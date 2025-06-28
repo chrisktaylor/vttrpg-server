@@ -13,7 +13,7 @@ const props = defineProps({
     <main>
         <MapControl
             :socket="socket"
-            :type="'gm'"
+            :type="'editor'"
         ></MapControl>
     </main>
 </template>

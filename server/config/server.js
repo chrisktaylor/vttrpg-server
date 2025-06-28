@@ -25,7 +25,7 @@ export default function getServer() {
     return {
         Port: serverPort,
         Url: serverUrl,
-        IndexPaths: ['/', '/display', '/dm', '/initiative', '/player', '/server'],
+        IndexPaths: ['/', '/display', '/dm', '/editor', '/initiative', '/player', '/server'],
         IndexFile: serverIndex,
     };
 }

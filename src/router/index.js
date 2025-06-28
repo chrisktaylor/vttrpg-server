@@ -15,6 +15,11 @@ const router = createRouter({
             component: () => import('../views/DisplayView.vue'),
         },
         {
+            path: '/editor',
+            name: 'editor',
+            component: () => import('../views/EditorView.vue'),
+        },
+        {
             path: '/dm',
             name: 'dm',
             component: () => import('../views/DungeonMasterView.vue'),

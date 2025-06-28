@@ -29,17 +29,17 @@ export default class CameraControl {
     set Zoom(value) {
         if (value >= ZOOM_MIN && value <= ZOOM_MAX) {
             this._camera.zoom = value;
-            this._updateCamera();
+            this.update();
         }
     }
 
-    constructor(canvas, container, hasControl) {
+    constructor(canvas, container, hasInput, hasControl) {
         this._camera = new THREE.OrthographicCamera(-1, 1, 1, -1, CAMERA_NEAR, CAMERA_FAR);
         this._camera.position.set(0, 0, CAMERA_Z);
         this._camera.up = new THREE.Vector3(0, 0, 1);
         this.onResize(container);
 
-        if (hasControl) {
+        if (hasInput) {
             this._controls = new OrbitControls(this._camera, canvas);
             this._controls.mouseButtons = { MIDDLE: THREE.MOUSE.PAN };
             this._controls.zoom = 1;
@@ -48,7 +48,8 @@ export default class CameraControl {
             this._controls.enableDamping = true;
             this._controls.enableRotate = false;
             this._controls.dampingFactor = 0.95;
-
+        }
+        if (hasControl) {
             this._controls.addEventListener('change', (event) => this._move(event));
         }
 
@@ -69,7 +70,7 @@ export default class CameraControl {
 
     onUpdate() {
         if (this._controls) {
-            this._controls.update();
+        this._camera.updateProjectionMatrix();
             this._camera.rotation.set(0, 0, 0);
             this._move();
         }
@@ -80,7 +81,7 @@ export default class CameraControl {
         this._camera.right = container.clientWidth / 2;
         this._camera.top = container.clientHeight / 2;
         this._camera.bottom = container.clientHeight / -2;
-        this._updateCamera();
+        this._camera.updateProjectionMatrix();
     }
 
     _move(event) {
@@ -91,9 +92,5 @@ export default class CameraControl {
                 zoom: this.Zoom,
             });
         }
-    }
-
-    _updateCamera() {
-        this._camera.updateProjectionMatrix();
     }
 }

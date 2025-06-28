@@ -1,6 +1,5 @@
 <script setup>
-import { onMounted, useTemplateRef } from 'vue';
-import { createMap } from '../map/app.js';
+import MapControl from '../components/controls/MapControl.vue';
 
 const props = defineProps({
     socket: {
@@ -8,22 +7,13 @@ const props = defineProps({
         required: true,
     },
 });
-
-const mapContainer = useTemplateRef('map-container');
-
-onMounted(() => {
-    createMap(mapContainer.value, props.socket);
-});
 </script>
 
 <template>
     <main>
-        <div ref="map-container" id="map-container"></div>
+        <MapControl
+            :socket="socket"
+            :type="'display'"
+        ></MapControl>
     </main>
 </template>
-
-<style>
-#map-container {
-    z-index: 100;
-}
-</style>
