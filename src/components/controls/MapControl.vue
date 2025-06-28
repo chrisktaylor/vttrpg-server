@@ -18,6 +18,7 @@ const mapContainer = useTemplateRef('map-container');
 
 onMounted(() => {
     const options = {
+        editor: props.type === 'editor',
         hasControl: props.type === 'gm',
         hasInput: props.type !== 'display'
     };
@@ -26,11 +27,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <main>
-        <div
-            ref="map-container"
-            id="map-container"
-            :class="`map-${type}`"
-        ></div>
-    </main>
+    <div
+        ref="map-container"
+        id="map-container"
+        :class="`map-${type}`"
+    ></div>
 </template>
