@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import CameraControl from './CameraControl';
+import MapEditor from '../editor/MapEditor';
 import Renderer from '../graphics/Renderer';
 
 const defaults = {
@@ -9,12 +10,13 @@ const defaults = {
 export default class MapControl {
     _camera = null;
     _container = null;
+    _editor = null;
     _renderer = null;
+    _resizeObserver = new ResizeObserver(this.onResize.bind(this));
     _running = false;
     _sceneRoot = new THREE.Scene();
     _settings = null;
     _socket = null;
-    _resizeObserver = new ResizeObserver(this.onResize.bind(this));
 
     constructor(container, socket, options) {
         this._container = container;
@@ -42,6 +44,13 @@ export default class MapControl {
 
     stop() {
         this._running = false;
+    }
+
+    onUiCommand(command) {
+        switch (command.type) {
+            case 'toggle:pan': this._camera.togglePan(); break;
+            case 'toggle:zoom': this._camera.toggleZoom(); break;
+        }
     }
 
     onResize() {

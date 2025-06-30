@@ -14,3 +14,7 @@ export function start() {
 export function stop() {
     if (mapControl) mapControl.stop();
 }
+
+export function onUiCommand(command) {
+    mapControl.onUiCommand(command);
+}

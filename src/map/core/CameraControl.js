@@ -12,6 +12,8 @@ export default class CameraControl {
     _camera = null;
     _controls = null;
     _handlers = {};
+    _zoomLocked = false;
+    _panLocked = false;
 
     get Camera() {
         return this._camera;
@@ -24,13 +26,6 @@ export default class CameraControl {
     }
     get Zoom() {
         return this._camera.zoom;
-    }
-
-    set Zoom(value) {
-        if (value >= ZOOM_MIN && value <= ZOOM_MAX) {
-            this._camera.zoom = value;
-            this.update();
-        }
     }
 
     constructor(canvas, container, hasInput, hasControl) {
@@ -60,19 +55,28 @@ export default class CameraControl {
         this._handlers[id] = handler;
     }
 
+    toggleZoom() {
+        this._zoomLocked = !this._zoomLocked;
+        this._controls.enableZoom = !this._zoomLocked;
+    }
+
+    togglePan() {
+        this._panLocked = !this._panLocked;
+        this._controls.enablePan = !this._panLocked;
+    }
+
     moveTo(x, y, zoom = null) {
         this._camera.position.set(x, y, CAMERA_Z);
         if (zoom !== null) {
-            this.Zoom = zoom;
+            this._camera.zoom = zoom;
         }
         this.onUpdate();
     }
 
     onUpdate() {
-        if (this._controls) {
         this._camera.updateProjectionMatrix();
+        if (this._controls) {
             this._camera.rotation.set(0, 0, 0);
-            this._move();
         }
     }
 
@@ -86,11 +90,16 @@ export default class CameraControl {
 
     _move(event) {
         if (this._handlers['change'] && event?.type === 'change') {
-            this._handlers['change']({
+            const values = {
                 x: this.Position.x,
                 y: this.Position.y,
-                zoom: this.Zoom,
-            });
+            };
+
+            if (!this._zoomLocked) {
+                values.zoom = this.Zoom;
+            }
+
+            this._handlers['change'](values);
         }
     }
 }

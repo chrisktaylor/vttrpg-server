@@ -12,6 +12,16 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    scale: {
+        type: Number,
+        required: false,
+        default: 1,
+    },
+    offset: {
+        type: Number,
+        required: false,
+        default: 0,
+    },
 });
 
 const mapContainer = useTemplateRef('map-container');
@@ -31,5 +41,6 @@ onMounted(() => {
         ref="map-container"
         id="map-container"
         :class="`map-${type}`"
+        :style="`margin-left:${offset}px;transform: scale(${scale})`"
     ></div>
 </template>
